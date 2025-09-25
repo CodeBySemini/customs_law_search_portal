@@ -18,7 +18,7 @@ Click to download the PDF
 
 Folder Structure
 customs_law_portal/
-│
+
 ├── scraper.py          # Scrapes title, category, and PDF URLs from website
 
 ├── extract_text.py     # Downloads PDFs & extracts text into a pickle file
