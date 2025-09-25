@@ -20,12 +20,19 @@ Folder Structure
 customs_law_portal/
 │
 ├── scraper.py          # Scrapes title, category, and PDF URLs from website
+
 ├── extract_text.py     # Downloads PDFs & extracts text into a pickle file
+
 ├── app.py              # Streamlit app for keyword-based search
+
 ├── laws.csv            # Stores scraped metadata
+
 ├── laws_text.pkl       # Stores extracted text for fast searching
+
 ├── pdfs/               # Folder where PDFs are stored
+
 ├── requirements.txt    # List of required dependencies
+
 └── README.md           # This file
 
 Setup Instructions
