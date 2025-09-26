@@ -1,6 +1,6 @@
 import streamlit as st
 import pandas as pd
-from table_scraper import get_exchange_rates
+from table_scraper import get_exchange_rates, get_ipr_data, get_revenue_data, get_travellers_data
 from util import format_table
 from datetime import datetime, timedelta
 
@@ -111,4 +111,53 @@ elif selected_route == "exchange":
                 st.markdown("[Source Link](https://www.cbsl.gov.lk/cbsl_custom/exratestt/exrates_resultstt.php)")
             except Exception as e:
                 st.error(f"Error fetching exchange rates: {e}")
+
+elif selected_route == "ipr":
+    st.subheader("Registered Trademarks and Contact Information in Sri Lanka")
+    ipr_tables = get_ipr_data()
+    ipr_table_titles = [
+        "Trademark Holders & Contact Details",
+        "Agent Details",
+        "Trademark Classes"
+    ]
+    for idx, df in enumerate(ipr_tables):
+        title = ipr_table_titles[idx] if idx < len(ipr_table_titles) else f"Table {idx+1}"
+        st.write(f"### {title}")
+        st.dataframe(format_table(df), use_container_width=True)
+    st.markdown("[Source Link](https://www.customs.gov.lk/wp-content/uploads/2025/03/ipr_table_data_2025.html)")
+
+# -----------------------------
+# Revenue Page
+# -----------------------------
+elif selected_route == "revenue":
+    st.subheader("Revenue Information")
+    revenue_tables = get_revenue_data()
+    revenue_titles = [
+        "Annual Original Revenue Estimates (Rs. Bn) for 2024 and 2025",
+        "Monthly Estimated vs Actual Revenue (Rs. Mn) for 2025",
+        "Cumulative Monthly Revenue (Rs. Mn) for 2025"
+    ]
+    for idx, df in enumerate(revenue_tables):
+        title = revenue_titles[idx] if idx < len(revenue_titles) else f"Table {idx+1}"
+        st.write(f"### {title}")
+        formatted_df = format_table(df)
+        st.dataframe(formatted_df, use_container_width=True)
+    st.markdown("[Source Link](https://www.customs.gov.lk/business/revenue-collected-by-sri-lanka-customs/)")
+
+# -----------------------------
+# Travel Page
+# -----------------------------
+elif selected_route == "travel":
+    st.subheader("Personal Travel Information")
+    travel_tables = get_travellers_data()
+    travel_titles = [
+        "Exemption Baggage for Adults",
+        "Exemption Baggage for Minors (<18 years)",
+        "Passenger Baggage – Duty Free Allowances"
+    ]
+    for idx, df in enumerate(travel_tables):
+        title = travel_titles[idx] if idx < len(travel_titles) else f"Table {idx+1}"
+        st.write(f"### {title}")
+        st.dataframe(format_table(df), use_container_width=True)
+    st.markdown("[Source Link](https://www.customs.gov.lk/personal/travellers/)")
 
