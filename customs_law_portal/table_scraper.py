@@ -47,6 +47,25 @@ def fetch_cbsl_exchange_rates(start_date, end_date, currencies=None):
 
     return exchange_data
 
+def fetch_tables(url):
+    response = requests.get(url)
+    response.raise_for_status()
+    soup = BeautifulSoup(response.text, "lxml")
+    tables = soup.find_all("table")
+    dfs = [pd.read_html(str(table))[0] for table in tables]
+    return dfs
+
+def get_ipr_data():
+    url = "https://www.customs.gov.lk/wp-content/uploads/2025/03/ipr_table_data_2025.html"
+    return fetch_tables(url)
+
+def get_revenue_data():
+    url = "https://www.customs.gov.lk/business/revenue-collected-by-sri-lanka-customs/"
+    return fetch_tables(url)
+
+def get_travellers_data():
+    url = "https://www.customs.gov.lk/personal/travellers/"
+    return fetch_tables(url)
 
 def get_exchange_rates(start_date="2025-06-25", end_date="2025-09-25", currencies=None):
     return fetch_cbsl_exchange_rates(start_date, end_date, currencies)
