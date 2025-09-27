@@ -35,7 +35,6 @@ def fetch_cbsl_exchange_rates(start_date, end_date, currencies=None):
     currency_headers = currency_headers[1:] 
     tables = soup.find_all("table")
 
-
     if not tables or not currency_headers:
         raise ValueError("No tables found. Check date range or payload.")
 
@@ -52,7 +51,12 @@ def fetch_tables(url):
     response.raise_for_status()
     soup = BeautifulSoup(response.text, "lxml")
     tables = soup.find_all("table")
-    dfs = [pd.read_html(str(table))[0] for table in tables]
+    dfs = []
+    for table in tables:
+        html_table = str(table)
+        dataframes = pd.read_html(html_table)
+        df = dataframes[0]
+        dfs.append(df)
     return dfs
 
 def get_ipr_data():
