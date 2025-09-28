@@ -1,3 +1,4 @@
+#24ada019 Adithya
 import pandas as pd
 import requests
 import os
@@ -39,3 +40,4 @@ for index, row in df.iterrows():
 df_text = pd.DataFrame(law_texts)
 df_text.to_pickle("laws_text.pkl")
 print("PDF text extraction complete! Data saved for search.")
+
