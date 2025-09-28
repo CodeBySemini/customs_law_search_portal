@@ -1,3 +1,4 @@
+# 24ada027 Semini
 import requests
 from bs4 import BeautifulSoup
 import pandas as pd
@@ -46,3 +47,4 @@ for section in sections:
 df = pd.DataFrame(laws)
 df.to_csv("laws.csv", index=False)
 print("Scraping complete! laws.csv created without duplicates.")
+
